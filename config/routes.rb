@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'members/show'
+  get 'members/edit'
   devise_for :members
   root to: "homes#top"
   get 'homes/about' => "homes#about", as: :about
