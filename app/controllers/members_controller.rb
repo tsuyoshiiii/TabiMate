@@ -3,7 +3,7 @@ class MembersController < ApplicationController
   def create
     @member = Member.new(member_params)
     if @member.save
-      redirect_to member_path(@member.id), notice: 'Welcome! You have signed up successfully.'
+      redirect_to member_path(@member.id)
     else
       render :new
     end
