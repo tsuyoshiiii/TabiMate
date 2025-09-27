@@ -8,10 +8,10 @@ class PostsController < ApplicationController
     @post.member_id = current_member.id
     if @post.save
       flash[:notice] = "You have created post successfully."
-      redirect_to posts_path
+      redirect_to post_path(@post.id)
     else
       @posts = Post.all
-      render 'index'
+      render 'new'
     end
   end
 
@@ -26,7 +26,19 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find(params[:id])  
   end
+
+  def update
+    post = Post.find(params[:id])
+    if post.update(post_params)
+      flash[:notice] = "You have updated book successfully."
+      redirect_to post_path(post.id)
+    else
+      render 'edit'
+    end
+  end
+
 
 
   private
