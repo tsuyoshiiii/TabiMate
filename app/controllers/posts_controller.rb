@@ -3,6 +3,13 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
+  def create
+    post = Post.new(post_params)
+    post.save
+    redirect_to posts_path
+  end
+
+
   def index
   end
 
@@ -10,5 +17,11 @@ class PostsController < ApplicationController
   end
 
   def edit
+  end
+
+
+  private
+  def post_params
+    params.require(:post).permit(:title, :body)
   end
 end
