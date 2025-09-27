@@ -10,6 +10,9 @@ class MembersController < ApplicationController
   end
 
   def show
+    @member = Member.find(params[:id])
+    @posts = @member.posts
+    @post = Post.new
   end
 
   def edit
