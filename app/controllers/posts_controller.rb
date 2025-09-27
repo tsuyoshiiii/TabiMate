@@ -4,13 +4,20 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(post_params)
-    post.save
-    redirect_to posts_path
+    @post = Post.new(post_params)
+    @post.member_id = current_member.id
+    if @post.save
+      flash[:notice] = "You have created post successfully."
+      redirect_to posts_path
+    else
+      @posts = Post.all
+      render 'index'
+    end
   end
 
 
   def index
+    @posts = Post.all
   end
 
   def show
@@ -21,6 +28,7 @@ class PostsController < ApplicationController
 
 
   private
+
   def post_params
     params.require(:post).permit(:title, :body)
   end
