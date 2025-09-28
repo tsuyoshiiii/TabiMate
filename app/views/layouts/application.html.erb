@@ -28,3 +28,9 @@
       <%= yield %>
   </body>
 </html>
+
+<main>
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
+</main>

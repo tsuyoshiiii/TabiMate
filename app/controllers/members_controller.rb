@@ -30,7 +30,7 @@ class MembersController < ApplicationController
 
   def update
     @member = Member.find(params[:id])
-    if @member.update(member_params)
+    if @member.update_without_current_password(member_params)
       flash[:notice] = "You have updated member successfully."
       redirect_to member_path(@member)
     else
@@ -38,10 +38,19 @@ class MembersController < ApplicationController
     end
   end
 
+  def destroy
+    @member = Member.find(params[:id]) 
+    @member.destroy
+    flash[:notice] = 'ユーザーを削除しました。'
+    redirect_to root_path
+  end
+
+  
+
   private
 
   def member_params
-    params.require(:member).permit(:name, :introduction)
+    params.require(:member).permit(:name, :introduction, :profile_image)
   end
 
 end

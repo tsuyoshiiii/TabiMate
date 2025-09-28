@@ -7,6 +7,8 @@ class Member < ApplicationRecord
   has_one_attached :profile_image
   has_many :posts, dependent: :destroy
 
+  validates :name, length: { minimum: 2, maximum: 20 } , uniqueness: true
+
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/default-image.jpg')
@@ -15,8 +17,16 @@ class Member < ApplicationRecord
     profile_image.variant(resize_to_limit: [width, height]).processed
    end
 
-  validates :name, length: { minimum: 2, maximum: 20 } , uniqueness: true
-  validates :email, presence: true
-  validates :password, presence: true
- 
+  def update_without_current_password(params, *options)
+    params.delete(:current_password)
+
+    if params[:password].blank? && params[:password_confirmation].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation)
+    end
+
+    result = update(params, *options)
+    clean_up_passwords
+    result
+  end
 end
