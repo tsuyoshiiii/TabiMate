@@ -1,0 +1,30 @@
+<h2>Editing Post</h2>
+
+<% if @post && @post.errors.any? %>
+  <%= @post.errors.count %>error prohibited this post from being saved:
+<ul>
+  <% @post.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+</ul>
+  <% end %>
+
+  <%= form_with model: @post do |f| %>
+
+    <h4>Title</h4>
+      <div>
+        <%= f.text_field :title %>  
+      </div>
+
+    <h4>Body</h4>
+      <div>
+        <%= f.text_area :body %>
+      </div>
+
+      <div>
+        <%= f.submit 'Update Post' %>
+      </div>  
+  <% end %>
+
+  <a href="<%= post_path(@post) %>">Show</a> |
+  <a href="<%= posts_path %>">Back</a>

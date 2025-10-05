@@ -1,0 +1,20 @@
+<h2>Member Info</h2>      
+        <%= form_with model: @member, url:member_path(@member) do |f| %>
+            <h2>Name</h2>
+              <div>
+                <%= f.text_field :name %>
+              </div>
+
+            <h2>Introduction</h2>
+              <div>
+                <%= f.text_area :introduction %>
+              </div>
+          
+            <div>
+              <%= f.submit 'Update Member' %>
+            </div>
+          
+            <div>
+              <%= link_to "Withdraw",member_path(current_member.id), class: "destroy-user", method: :delete, "data-confirm" => "本当に退会しますか？" %>
+            </div>
+        <% end %>

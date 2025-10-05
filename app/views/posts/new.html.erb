@@ -1,0 +1,21 @@
+<h4>New Post</h4>
+  <% if @post && @post.errors.any? %>
+  <%= @post.errors.count %>error prohibited this post from being saved:
+<ul>
+  <% @post.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+</ul>
+  <% end %>
+
+<%= form_with model: @post, url: posts_path do |f| %>
+    <p>Title</p>
+    <%= f.text_field :title %>
+      
+    <p>Body</p>
+    <%= f.text_area :body %>
+      
+    <p>
+    <%= f.submit 'Create Post' %>
+    <p/>
+  <% end %>

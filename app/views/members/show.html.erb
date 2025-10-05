@@ -1,0 +1,18 @@
+<div>name: <%= @member.name %></div>
+<div>introduction: <%= @member.introduction %></div>
+<div>
+  <%= link_to 'Edit', edit_member_path(@member) %>
+</div>
+
+    #プロフィール画像の表示　
+
+<% @posts.each do |post| %>
+
+    <p>
+      <%= link_to post.title, post_path(post.id) %>
+    </p>
+    <p>
+      <%= post.body %>
+    </p>
+<% end %>
+
