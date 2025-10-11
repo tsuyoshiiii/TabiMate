@@ -8,6 +8,8 @@ class Member < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   validates :name, length: { minimum: 2, maximum: 20 } , uniqueness: true
+  validates :email, {presence: true}
+  validates :password, {presence: true}
 
   def get_profile_image(width, height)
     unless profile_image.attached?
