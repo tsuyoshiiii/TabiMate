@@ -8,6 +8,7 @@
 
     <script src="https://kit.fontawesome.com/5bd51b8c93.js" crossorigin="anonymous"></script>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
@@ -68,10 +69,12 @@
       </header>
         <%= yield %>
     </body>
-</html>
+
 
 <main>
 <% if flash[:notice] %>
   <p><%= flash[:notice] %></p>
 <% end %>
 </main>
+
+</html>
