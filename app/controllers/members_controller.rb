@@ -39,8 +39,7 @@ class MembersController < ApplicationController
   end
 
   def destroy
-    @member = current_member 
-    sign_out @member
+    @member = Member.find(params[:id]) 
     @member.destroy
     flash[:notice] = 'ユーザーを削除しました。'
     redirect_to root_path
