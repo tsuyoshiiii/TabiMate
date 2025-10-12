@@ -34,10 +34,10 @@ class PostsController < ApplicationController
   end
 
   def update
-    post = Post.find(params[:id])
-    if post.update(post_params)
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
       flash[:notice] = "You have updated book successfully."
-      redirect_to post_path(post.id)
+      redirect_to post_path(@post)
     else
       render 'edit'
     end
