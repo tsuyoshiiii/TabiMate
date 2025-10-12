@@ -15,6 +15,7 @@
             </div>
           
             <div>
-              <%= link_to "Withdraw",member_path(current_member.id), class: "destroy-member", method: :delete, "data-confirm" => "本当に退会しますか？" %>
+              <%= link_to "Withdraw",member_path(current_member.id), 
+              class: "destroy-member", method: :delete, "data-confirm" => "本当に退会しますか？" %>
             </div>
         <% end %>
