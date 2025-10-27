@@ -49,6 +49,14 @@ class PostsController < ApplicationController
     redirect_to posts_path  
   end
 
+  def index
+    if params[:search]
+      @posts = Post.where("title LIKE ? OR body LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
+    else
+      @posts = Post.all
+    end
+  end
+
 
 
   private
