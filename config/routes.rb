@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'searches/search'
   devise_for :members
   root to: "homes#top"
   get 'homes/about' => "homes#about", as: :about
