@@ -17,6 +17,7 @@ class MembersController < ApplicationController
   def show
     @member = Member.find(params[:id])
     @posts = @member.posts
+    @post = @member.posts.order(created_at: :desc).first
   end
 
   def edit

@@ -7,6 +7,33 @@
   <%= @post.body %>
 </p>
 
+<table>
+  <tbody>
+    <% @post.post_comments.each do |post_comment| %>
+      <tr>
+        <td>
+          <%= link_to member_path(post_comment.member) do %>
+            <%= post_comment.member.name %>
+          <% end %>
+        </td>
+
+        <td><%= post_comment.comment %></td>
+        
+        <td>
+          <% if post_comment.member == current_member %>
+            <%= link_to "Destroy", post_post_comment_path(@post, post_comment), method: :delete, class: "btn btn-danger pull-right" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= form_with(model:[@post, @post_comment], local: true) do |f| %>
+  <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに入力してください", class: "w-100" %>
+  <%= f.submit "送信" %>
+<% end %>
+
 <% if @post.member == current_member %>
   <%= link_to "Edit", edit_post_path(@post.id) %>
 <% end %>

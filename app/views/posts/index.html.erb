@@ -9,25 +9,28 @@
   <p>Search result「<%= params[:search] %>」</p>
 <% end %>
 
-  <table>
+  <table class='table table-hover table-inverse'>
     <thead>
       <tr>
         <th>Title</th>
         <th>Body</th>
-        <th></th>
+        <th colspan="3"></th>
       </tr>
     </thead>
 
     <tbody>
        <% @posts.each do |post| %>
-          <tr>
+        <tr>
           <td>
-          <%= link_to post.title, post_path(post.id) %>
-        </td>
-        <td>
-          <%= post.body %>
-        </td>
-          </tr>
-        <% end %>
+            <%= link_to post.title, post_path(post.id) %>
+          </td>
+          <td>
+            <%= post.body %>
+          </td>
+          <td>コメント数:
+            <%= post.post_comments.count %>
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
