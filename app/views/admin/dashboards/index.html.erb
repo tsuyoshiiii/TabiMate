@@ -1,8 +1,8 @@
 <h1>全ユーザー一覧</h1>
 <ul>
-  <% @users.each do |user| %>
+  <% @members.each do |member| %>
     <li>
-      <%= user.name %> - <%= user.email %>
+      <%= member.name %> - <%= member.email %>
     </li>
   <% end %>
 </ul>
