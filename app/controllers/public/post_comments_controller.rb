@@ -1,4 +1,4 @@
-class PostCommentsController < ApplicationController
+class Public::PostCommentsController < ApplicationController
   def create
     # 1. Postモデルで、params[:post_id]を使って投稿を取得
     post = Post.find(params[:post_id]) 

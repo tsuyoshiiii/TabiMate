@@ -41,10 +41,10 @@
                     <span>Posts</span>
                   </a>
 
-                  <a class="nav-link text-light" href="<%= destroy_member_session_path %>", data-method="delete">
+                  <%= link_to destroy_member_session_path, data: { turbo_method: :delete }, class: "nav-link text-light" do %>
                   <i class="fa-solid fa-sign-out-alt"></i>
                     <span>Log out</span>
-                  </a>
+                  <% end %>
 
                 <% else %>
                   <a class="nav-link text-light" href="<%= root_path %>">

@@ -1,4 +1,4 @@
-class MembersController < ApplicationController
+class Public::MembersController < ApplicationController
 
   def create
     @member = Member.new(member_params)
