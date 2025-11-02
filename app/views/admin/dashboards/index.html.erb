@@ -2,7 +2,11 @@
 <ul>
   <% @members.each do |member| %>
     <li>
-      <%= member.name %> - <%= member.email %>
+      
+      <%= link_to member.name, admin_member_path(member) %> 
+      
+      - <%= member.email %>
+      
       <%= link_to '削除', admin_member_path(member), method: :delete, data: { confirm: '本当に削除しますか？' } %> 
     </li>
   <% end %>

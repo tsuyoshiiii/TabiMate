@@ -1,0 +1,20 @@
+<h1><%= @member.name %>'s detail</h1>
+
+<dl>
+  <dt>メールアドレス</dt>
+  <dd><%= @member.email %></dd>
+  
+  <dt>ユーザーID</dt>
+  <dd><%= @member.id %></dd>
+  
+  </dl>
+
+<hr>
+
+<%= link_to 'このメンバーを強制退会させる', 
+            admin_member_path(@member), 
+            method: :delete, 
+            data: { confirm: "【警告】#{@member.name}さんを本当に強制退会させますか？この操作は元に戻せません。" },
+            class: 'btn btn-danger' %>
+
+<%= link_to '一覧に戻る', admin_dashboards_path, class: 'btn btn-secondary' %>

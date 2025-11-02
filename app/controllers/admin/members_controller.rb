@@ -5,4 +5,8 @@ class Admin::MembersController < ApplicationController
         @member.destroy
         redirect_to admin_dashboards_path, notice: 'メンバーを削除しました。'
     end
+
+    def show
+        @member = Member.find(params[:id])
+    end
 end
