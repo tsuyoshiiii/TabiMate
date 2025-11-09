@@ -21,51 +21,73 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav ml-auto">
                 <% if member_signed_in? %>
+
+                <li class="nav-item">
                   <a class="nav-link text-light" href="<%= member_path(current_member) %>">
                   <i class="fa-solid fa-home"></i>
                     <span>Mypage</span>
                   </a>
+                </li>
 
+                <li class="nav-item">
                   <a class="nav-link text-light" href="<%= member_path(current_member) %>">
                   <i class="fa-solid fa-users"></i>
                     <span>Groups</span>
                   </a>
+                </li>
 
+                <li class="nav-item">
                   <a class="nav-link text-light" href="<%= new_post_path %>">
                   <i class="fa-solid fa-book-open"></i>
                     <span>New Post</span>
                   </a>
+                </li>
 
+                <li class="nav-item">
                   <a class="nav-link text-light" href="<%= posts_path %>">
                   <i class="fa-solid fa-book-open"></i>
                     <span>Posts</span>
                   </a>
+                </li>
 
-                  <%= link_to destroy_member_session_path, data: { turbo_method: :delete }, class: "nav-link text-light" do %>
-                  <i class="fa-solid fa-sign-out-alt"></i>
-                    <span>Log out</span>
+                <li class="nav-item">
+                  <%= form_with url: destroy_member_session_path, method: :delete, local: true, class: "d-inline" do %>
+                    <button type="submit" class="nav-link text-light btn btn-link" style="text-decoration: none;">
+                      <i class="fa-solid fa-sign-out-alt"></i>
+                      <span>Log out</span>
+                    </button>
                   <% end %>
+                </li>
 
                 <% else %>
+
+                <li class="nav-item">
                   <a class="nav-link text-light" href="<%= root_path %>">
                   <i class="fa-solid fa-home"></i>
                     <span>Home</span>
                   </a>
+                </li>
 
+                <li class="nav-item">
                   <a class="nav-link text-light" href="<%= about_path %>">
                   <i class="fa-solid fa-link"></i>
                     <span>About</span>
                   </a>
+                </li>
 
+                <li class="nav-item">
                   <a class="nav-link text-light" href="<%= new_member_registration_path %>">
                   <i class="fa-solid fa-user-plus"></i>
                     <span>Sign up</span>
                   </a>
+                </li>
 
+                <li class="nav-item">
                   <a class="nav-link text-light" href="<%= new_member_session_path %>">
                   <i class="fa-solid fa-sign-in-alt"></i>
                     <span>Log in</span>
                   </a>
+                </li>
                 <% end %>
               </ul>
             </div>

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
                 if: :devise_controller?, 
                 only: [:create, :update]
     before_action :authenticate_member!, 
-                except: [:top, :about], 
+                except: [:top, :about, :new, :create], 
                 unless: :admin_controller?
   
 
