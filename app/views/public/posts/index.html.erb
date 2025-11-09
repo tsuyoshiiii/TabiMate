@@ -9,6 +9,11 @@
   <p>Search result「<%= params[:search] %>」</p>
 <% end %>
 
+<% if params[:search].present? && @posts.empty? %>
+  <p>該当する投稿はありませんでした。</p>
+<% elsif @posts.present? %>
+<% end %>
+
   <table class='table table-hover table-inverse'>
     <thead>
       <tr>
