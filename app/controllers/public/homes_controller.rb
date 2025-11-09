@@ -6,4 +6,5 @@ class Public::HomesController < ApplicationController
   def about
     render 'public/homes/about'
   end
+  
 end
