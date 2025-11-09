@@ -1,20 +1,35 @@
-<h1><%= @member.name %>'s detail</h1>
-
-<dl>
-  <dt>メールアドレス</dt>
-  <dd><%= @member.email %></dd>
-  
-  <dt>ユーザーID</dt>
-  <dd><%= @member.id %></dd>
-  
-  </dl>
-
-<hr>
-
-<%= link_to 'このメンバーを強制退会させる', 
-            admin_member_path(@member), 
-            method: :delete, 
-            data: { confirm: "【警告】#{@member.name}さんを本当に強制退会させますか？この操作は元に戻せません。" },
-            class: 'btn btn-danger' %>
-
-<%= link_to '一覧に戻る', admin_dashboards_path, class: 'btn btn-secondary' %>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      
+      <h1><%= @member.name %>'s Detail</h1>
+      
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">登録情報</h5>
+        </div>
+        
+        <div class="card-body">
+          <dl class="row mb-0">
+            <dt class="col-sm-3 text-secondary">メールアドレス</dt>
+            <dd class="col-sm-9"><%= @member.email %></dd>
+            
+            <dt class="col-sm-3 text-secondary">ユーザーID</dt>
+            <dd class="col-sm-9"><%= @member.id %></dd>
+          </dl>
+        </div>
+      </div>
+      
+      <div class="mt-4 d-flex justify-content-between">
+        <%= link_to 'このメンバーを強制退会させる', 
+                    admin_member_path(@member), 
+                    method: :delete, 
+                    data: { confirm: "【警告】#{@member.name}さんを本当に強制退会させますか？この操作は元に戻せません。" },
+                    class: 'btn btn-danger' %>
+                    
+        <%= link_to '一覧に戻る', admin_dashboards_path, class: 'btn btn-secondary' %>
+      </div>
+      
+    </div>
+  </div>
+</div>
