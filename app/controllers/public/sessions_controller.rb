@@ -21,7 +21,17 @@ class Public::SessionsController < Devise::SessionsController
   # end
 
   # DELETE /resource/sign_out
-  # def destroy
+    def destroy
+      signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+      set_flash_message! :notice, :signed_out if signed_out
+      yield resource if resource
+
+      respond_to do |format|
+        format.html { redirect_to after_sign_out_path_for(resource_name) }
+    
+      end
+    end
+
   #   super
   # end
 
