@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   scope module: :public do
     
     devise_for :members
+
+    post "members/guest_sign_in", to: "guest_sessions#create", as: :guest_sign_in
+
     root to: "homes#top"
     get 'homes/about' => "homes#about", as: :about
 

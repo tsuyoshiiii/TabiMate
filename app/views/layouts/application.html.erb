@@ -22,12 +22,14 @@
               <ul class="navbar-nav ml-auto">
                 <% if member_signed_in? %>
 
+                <% unless current_member.guest_member? %>
                 <li class="nav-item">
-                  <a class="nav-link text-light" href="<%= member_path(current_member) %>">
-                  <i class="fa-solid fa-home"></i>
-                    <span>Mypage</span>
-                  </a>
+                <a class="nav-link text-light" href="<%= member_path(current_member) %>">
+                <i class="fa-solid fa-home"></i>
+                  <span>Mypage</span>
+                </a>
                 </li>
+                <% end %>
 
                 <li class="nav-item">
                   <a class="nav-link text-light" href="<%= member_path(current_member) %>">

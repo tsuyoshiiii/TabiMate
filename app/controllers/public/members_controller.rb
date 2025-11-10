@@ -1,4 +1,6 @@
 class Public::MembersController < ApplicationController
+  before_action :authenticate_member!
+  before_action :ensure_guest_member, only: [:edit, :update, :destroy]
 
   def create
     @member = Member.new(member_params)
@@ -54,4 +56,17 @@ class Public::MembersController < ApplicationController
     params.require(:member).permit(:name, :introduction, :profile_image)
   end
 
+  def ensure_correct_member
+    @member = Member.find(params[:id])
+    unless @member == current_member
+      redirect_to member_path(current_member), alert: "他のユーザーの情報を編集することはできません。"
+    end
+  end
+
+  def ensure_guest_member
+    @member = Member.find(params[:id])
+    if current_member.guest_member?
+      redirect_to member_path(current_member), notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
+    end
+  end
 end
