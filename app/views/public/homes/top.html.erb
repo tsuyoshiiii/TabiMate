@@ -1,31 +1,48 @@
-<div class="btn-wrapper col-10 mx-auto"> 
-  <div class="row">
-    <%= link_to "ゲストログイン（閲覧用）", guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
-  </div>
-</div>
-
-<section>
-  <div class="container mx-auto text-center">
-    <h2 class="text-3xl font-bold mb-10">TabiMateの３つの特長</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+<section class="py-5"> <!-- 上下にパディングを追加 -->
+  <div class="container text-center">
+    <!-- 💡 修正 1: 見出しの下にボーダーを追加 💡 -->
+    <h2 class="h3 font-weight-bold mb-5 pb-2 border-bottom border-secondary d-inline-block">
+      TabiMateの３つの特長
+    </h2>
+    
+    <!-- 💡 修正 2: rowにd-flexとh-100を追加し、カードの高さを揃える 💡 -->
+    <div class="row justify-content-center d-flex align-items-stretch"> <!-- グリッド開始 -->
       
-      <div class="feature-card p-6 bg-white rounded-lg shadow-md">
-        <span class="text-4xl text-blue-500 mb-4 block">🗓️</span>
-        <h3 class="text-xl font-semibold mb-3">手間いらずのスケジュール共有</h3>
-        <p class="text-gray-600">旅程や特記事項、金額情報をメンバー全員がいつでもどこでも確認可能。幹事の連絡ストレスを大幅に軽減します。</p>
+      <!-- 特長 1 -->
+      <div class="col-md-4 mb-4">
+        <!-- カードにh-100を追加してrowの高さいっぱいに伸ばす -->
+        <div class="card p-3 rounded shadow h-100"> 
+          <span class="h1 text-info mb-3 d-block">🗓️</span> <!-- アイコン、色、マージン -->
+          <h3 class="h5 font-weight-bold mb-3">手間いらずのスケジュール共有</h3>
+          <p class="text-muted">旅程や特記事項、金額情報をメンバー全員がいつでもどこでも確認可能。幹事の連絡ストレスを大幅に軽減します。</p>
+        </div>
       </div>
 
-      <div class="feature-card p-6 bg-white rounded-lg shadow-md">
-        <span class="text-4xl text-pink-500 mb-4 block">📸</span>
-        <h3 class="text-xl font-semibold mb-3">旅行中の思い出をリアルタイム投稿</h3>
-        <p class="text-gray-600">移動中や休憩中に写真や感想をすぐに投稿。メンバー全員が旅行の興奮を共有し、楽しめます。</p>
+      <!-- 特長 2 -->
+      <div class="col-md-4 mb-4">
+        <div class="card p-3 rounded shadow h-100">
+          <span class="h1 text-danger mb-3 d-block">📸</span>
+          <h3 class="h5 font-weight-bold mb-3">旅行の思い出をリアルタイム投稿</h3>
+          <p class="text-muted">移動中や休憩中に写真や感想をすぐに投稿。メンバー全員が旅行の興奮を共有し、楽しめます。</p>
+        </div>
       </div>
 
-      <div class="feature-card p-6 bg-white rounded-lg shadow-md">
-        <span class="text-4xl text-yellow-500 mb-4 block">💖</span>
-        <h3 class="text-xl font-semibold mb-3">旅行後も色褪せない思い出に</h3>
-        <p class="text-gray-600">写真だけでなく、当時のメンバーの率直なコメントも一緒に保存。旅行の感動をいつでも振り返ることができます。</p>
+      <!-- 特長 3 -->
+      <div class="col-md-4 mb-4">
+        <div class="card p-3 rounded shadow h-100">
+          <span class="h1 text-warning mb-3 d-block">💖</span>
+          <h3 class="h5 font-weight-bold mb-3">旅行後も色褪せない思い出に</h3>
+          <p class="text-muted">写真だけでなく、当時のメンバーの率直なコメントも一緒に保存。旅行の感動をいつでも振り返ることができます。</p>
+        </div>
       </div>
-    </div>
+      
+    </div> <!-- グリッド終了 -->
   </div>
 </section>
+
+<!-- ゲストログインボタン -->
+<div class="btn-wrapper col-3 mx-auto mb-5"> 
+  <div class="row">
+    <%= link_to "ゲストログイン", guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in font-weight-bold rounded-pill", method: :post %>
+  </div>
+</div>
