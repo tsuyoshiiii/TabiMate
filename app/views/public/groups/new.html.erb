@@ -1,0 +1,40 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <h2 class="h3 fw-bold mb-4 text-center">新しいグループを作成</h2>
+      <div class="card p-4 shadow-sm">
+        
+        <%= form_with model: @group, url: groups_path, local: true do |f| %>
+          
+          <%# エラー表示（バリデーション失敗時） %>
+          <% if @group.errors.any? %>
+            <div id="error_explanation" class="alert alert-danger">
+              <h5><%= @group.errors.count %>件のエラーがあります。</h5>
+              <ul>
+                <% @group.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="mb-3">
+            <%= f.label :name, "グループ名", class: "form-label fw-semibold" %>
+            <%= f.text_field :name, class: "form-control", placeholder: "旅のテーマや目標を記載" %>
+          </div>
+
+          <div class="mb-4">
+            <%= f.label :introduction, "グループ紹介", class: "form-label fw-semibold" %>
+            <%= f.text_area :introduction, rows: 5, class: "form-control", placeholder: "グループの活動内容やルールを詳しく説明しましょう" %>
+          </div>
+
+          <div class="d-grid gap-2">
+            <%= f.submit "グループを作成", class: "btn btn-primary btn-lg" %>
+            <%= link_to '一覧に戻る', groups_path, class: 'btn btn-outline-secondary' %>
+          </div>
+        <% end %>
+        
+      </div>
+    </div>
+  </div>
+</div>
