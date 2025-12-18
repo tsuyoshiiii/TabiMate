@@ -1,5 +1,6 @@
 class Public::GroupMembersController < ApplicationController
     before_action :authenticate_member!
+    before_action :ensure_owner, only: [:edit, :update, :applications, :approve_application, :reject_application]
 
   def create
     @group = Group.find(params[:group_id])

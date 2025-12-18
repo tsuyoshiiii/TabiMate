@@ -1,7 +1,6 @@
 class Public::GroupsController < ApplicationController
     before_action :authenticate_member! # ログイン必須
-    before_action :ensure_owner, only: [:applications, :approve_application, :reject_application]
-
+    before_action :ensure_owner, only: [:edit, :update, :applications, :approve_application, :reject_application]
   # グループ一覧表示 (検索機能もここに実装)
   def index
     @groups = Group.all.order(created_at: :desc)
@@ -54,6 +53,19 @@ def reject_application
   @group_member = GroupMember.find(params[:group_member_id])
   @group_member.rejected! # enum statusをrejected(2)に更新
   redirect_to applications_group_path(@group_member.group), notice: "#{@group_member.member.name} の申請を拒否しました。"
+end
+
+def edit
+  @group = Group.find(params[:id]) # これで id=>nil エラーが消えます
+end
+
+def update
+  @group = Group.find(params[:id])
+  if @group.update(group_params)
+    redirect_to group_path(@group), notice: 'グループ情報を更新しました。'
+  else
+    render :edit
+  end
 end
 
   private
