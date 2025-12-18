@@ -22,9 +22,24 @@
             <span>TabiMate</span>
           </a>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul class="navbar-nav ml-auto">
-                <% if member_signed_in? %>
-
+              <ul class="navbar-nav ms-auto">
+                <% if admin_signed_in? %>
+                  <li class="nav-item">
+                    <%= link_to admin_dashboards_path, class: "nav-link text-light" do %>
+                      <i class="fa-solid fa-users-gear"></i> <span>Member Management</span>
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to admin_groups_path, class: "nav-link text-light" do %>
+                      <i class="fa-solid fa-layer-group"></i> <span>Group Management</span>
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link text-light" do %>
+                      <i class="fa-solid fa-sign-out-alt"></i> <span>Log out (Admin)</span>
+                    <% end %>
+                  </li>
+                <% elsif member_signed_in? %>
                 <% unless current_member.guest_member? %>
                 <li class="nav-item">
                 <a class="nav-link text-light" href="<%= member_path(current_member) %>">

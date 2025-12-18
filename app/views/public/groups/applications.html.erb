@@ -1,0 +1,69 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "グループ詳細", group_path(@group) %></li>
+          <li class="breadcrumb-item active" aria-current="page">参加申請一覧</li>
+        </ol>
+      </nav>
+
+      <h2 class="h3 fw-bold mb-4">「<%= @group.name %>」への参加申請</h2>
+
+      <div class="card shadow-sm">
+        <div class="card-body p-0">
+          <% if @pending_members.present? %>
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th class="ps-4">ユーザー名</th>
+                    <th>申請日時</th>
+                    <th class="text-end pe-4">アクション</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @pending_members.each do |group_member| %>
+                    <tr>
+                      <td class="ps-4">
+                        <div class="d-flex align-items-center">
+                          <i class="bi bi-person-circle fs-4 me-2 text-secondary"></i>
+                          <%= link_to group_member.member.name, member_path(group_member.member), class: "text-decoration-none fw-bold" %>
+                        </div>
+                      </td>
+                      <td>
+                        <%= group_member.created_at.strftime('%Y/%m/%d %H:%M') %>
+                      </td>
+                      <td class="text-end pe-4">
+                        <div class="btn-group" role="group">
+                          <%# 承認ボタン %>
+                          <%= link_to '承認', 
+                              approve_application_group_path(@group, group_member_id: group_member.id), 
+                              method: :patch, 
+                              class: 'btn btn-success btn-sm px-3' %>
+                          
+                          <%# 拒否ボタン %>
+                          <%= link_to '拒否', 
+                              reject_application_group_path(@group, group_member_id: group_member.id), 
+                              method: :patch, 
+                              data: { confirm: "#{group_member.member.name}さんの申請を拒否しますか？" }, 
+                              class: 'btn btn-outline-danger btn-sm px-3' %>
+                        </div>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% else %>
+            <div class="p-5 text-center">
+              <i class="bi bi-inbox text-muted fs-1 mb-3 d-block"></i>
+              <p class="text-secondary mb-0">現在、新しい参加申請はありません。</p>
+              <%= link_to "グループ詳細に戻る", group_path(@group), class: "btn btn-link mt-2" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,33 +1,59 @@
-<h1>全ユーザー一覧</h1>
+<div class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="h3 fw-bold mb-0 text-dark">
+        <i class="fa-solid fa-users me-2 text-primary"></i>全ユーザー
+      </h1>
+      <p class="text-muted small mb-0"></p>
+    </div>
+    <div>
+       <span class="badge bg-light text-secondary border rounded-pill px-3 py-2">
+         合計: <%= @members.count %> 名
+       </span>
+    </div>
+  </div>
 
-<table class="table table-striped table-hover">
-  
-  <thead class="thead-dark">
-    <tr>
-      <th style="width: 40%;">ユーザー名</th>
-      <th style="width: 40%;">メールアドレス</th>
-      <th style="width: 20%;">操作</th>
-    </tr>
-  </thead>
-  
-  <tbody>
-    <% @members.each do |member| %>
-      <tr>
-        <td class="align-middle">
-          <%= link_to member.name, admin_member_path(member) %> 
-        </td>
-        
-        <td class="align-middle">
-          <%= member.email %>
-        </td>
-        
-        <td class="align-middle">
-          <%= link_to '削除', admin_member_path(member), 
-                      method: :delete, 
-                      data: { confirm: '本当に ' + member.name + ' を削除しますか？' },
-                      class: 'btn btn-danger btn-sm' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          
+          <thead class="bg-light border-bottom">
+            <tr>
+              <th class="ps-4 py-3 text-secondary fw-bold" style="width: 35%;">ユーザー名</th>
+              <th class="py-3 text-secondary fw-bold" style="width: 40%;">メールアドレス</th>
+              <th class="py-3 text-center text-secondary fw-bold" style="width: 25%;">操作</th>
+            </tr>
+          </thead>
+          
+          <tbody>
+            <% @members.each do |member| %>
+              <tr>
+                <td class="ps-4">
+                  <div class="d-flex align-items-center">
+                    <i class="bi bi-person-circle fs-4 me-2 text-secondary"></i>
+                    <%= link_to member.name, admin_member_path(member), class: "text-decoration-none fw-bold text-dark hover-primary" %>
+                  </div>
+                </td>
+                
+                <%# メールアドレス %>
+                <td class="text-secondary">
+                  <%= member.email %>
+                </td>
+                
+                <td class="text-center">
+                  <%= link_to admin_member_path(member), 
+                              method: :delete, 
+                              data: { confirm: "本当に #{member.name} さんを削除しますか？\nこの操作は取り消せません。" },
+                              class: 'btn btn-outline-danger btn-sm rounded-pill px-3' do %>
+                    <i class="fa-solid fa-trash-can me-1"></i>削除
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
