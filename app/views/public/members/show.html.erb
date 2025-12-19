@@ -1,19 +1,100 @@
-<div>name: <%= @member.name %></div>
-<div>introduction: <%= @member.introduction %></div>
-<div>
-  <%= link_to 'Edit', edit_member_path(@member) %>
+<div class="container my-5">
+  <div class="row">
+    
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0 sticky-top" style="top: 20px;">
+        <div class="card-body text-center p-4">
+          <div class="mb-3">
+            <i class="fa-solid fa-circle-user text-secondary" style="font-size: 80px;"></i>
+          </div>
+          
+          <h2 class="h4 fw-bold mb-1"><%= @member.name %></h2>
+          <p class="text-muted small mb-3">@<%= @member.name.downcase %></p>
+          
+          <div class="d-flex justify-content-center border-top border-bottom py-2 mb-3">
+            <div class="px-3 text-center">
+              <div class="fw-bold"><%= @posts.count %></div>
+              <div class="small text-muted">Posts</div>
+            </div>
+          </div>
+
+          <div class="text-start mb-4">
+            <label class="small fw-bold text-secondary mb-1">
+              <i class="fa-solid fa-quote-left me-1"></i>Introduction
+            </label>
+            <p class="card-text small text-dark">
+              <%= @member.introduction.presence || "自己紹介はまだありません。" %>
+            </p>
+          </div>
+
+          <% if @member == current_member %>
+            <div class="d-grid">
+              <%= link_to edit_member_path(@member), class: "btn btn-outline-primary rounded-pill btn-sm" do %>
+                <i class="fa-solid fa-user-pen me-1"></i>プロフィールを編集
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="d-flex align-items-center mb-4">
+        <h3 class="h5 fw-bold mb-0">
+          <i class="fa-solid fa-pen-nib me-2 text-primary"></i>My Posts
+        </h3>
+      </div>
+
+      <% if @posts.present? %>
+        <% @posts.each do |post| %>
+          <div class="card shadow-sm border-0 mb-3 hover-shadow transition">
+            <div class="card-body p-4">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h4 class="h5 fw-bold mb-0">
+                  <%= link_to post.title, post_path(post), class: "text-dark text-decoration-none hover-primary" %>
+                </h4>
+                <small class="text-muted">
+                  <i class="fa-regular fa-clock me-1"></i><%= post.created_at.strftime('%Y/%m/%d') %>
+                </small>
+              </div>
+              
+              <p class="text-secondary small mb-3">
+                <%= truncate(post.body, length: 100) %>
+              </p>
+              
+              <div class="d-flex align-items-center justify-content-between mt-auto">
+                <div class="text-muted small">
+                  <i class="fa-regular fa-comment-dots me-1"></i>
+                  コメント <span class="fw-bold"><%= post.post_comments.count %></span> 件
+                </div>
+                <%= link_to post_path(post), class: "text-primary small text-decoration-none fw-bold" do %>
+                  続きを読む <i class="fa-solid fa-angle-right ms-1"></i>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+
+        <div class="card border-0 shadow-sm p-5 text-center">
+          <i class="fa-solid fa-box-open fs-1 text-light mb-3"></i>
+          <p class="text-muted mb-0">まだ投稿がありません。</p>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
 </div>
 
-<% @posts.each do |post| %>
-
-    <p>
-      <%= link_to post.title, post_path(post.id) %>
-    </p>
-    <p>
-      <%= post.body %>
-    </p>
-    <p>コメント数: 
-      <%= @post.post_comments.count %>
-    </p>
-<% end %>
-
+<style>
+  .hover-shadow:hover {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    transform: translateY(-2px);
+  }
+  .transition {
+    transition: all 0.3s ease;
+  }
+  .hover-primary:hover {
+    color: #0d6efd !important;
+  }
+</style>

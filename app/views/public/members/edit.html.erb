@@ -1,31 +1,70 @@
-<h2>Member Info</h2>      
-
-  <% if @member && @member.errors.any? %>
-  <%= @member.errors.count %>error prohibited this post from being saved:
-<ul>
-  <% @member.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
-  <% end %>
-</ul>
-  <% end %>
-        <%= form_with model: @member, url:member_path(@member) do |f| %>
-            <h2>Name</h2>
-              <div>
-                <%= f.text_field :name %>
-              </div>
-
-            <h2>Introduction</h2>
-              <div>
-                <%= f.text_area :introduction %>
-              </div>
-          
-            <div>
-              <%= f.submit 'Update Member' %>
-            </div>
-        <% end %>
-          
-            <div>
-              <%= link_to "Withdraw",member_path(current_member.id), 
-              class: "destroy-member", method: :delete, "data-confirm" => "本当に退会しますか？" %>
-            </div>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
       
+      <div class="mb-4 text-center">
+        <h2 class="h3 fw-bold">
+          <i class="fa-solid fa-user-gear me-2 text-primary"></i>Profile Settings
+        </h2>
+      </div>
+
+      <% if @member.errors.any? %>
+        <div class="alert alert-danger shadow-sm border-0 mb-4" role="alert">
+          <div class="fw-bold mb-2">
+            <i class="fa-solid fa-circle-exclamation me-2"></i>
+            <%= @member.errors.count %>件のエラーが発生しました
+          </div>
+          <ul class="mb-0 small">
+            <% @member.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body p-4">
+          <%= form_with model: @member, url: member_path(@member), local: true do |f| %>
+            
+            <div class="mb-4">
+              <%= f.label :name, "ユーザー名", class: "form-label fw-bold" %>
+              <div class="input-group">
+                <span class="input-group-text bg-light text-secondary border-end-0">
+                  <i class="fa-solid fa-user"></i>
+                </span>
+                <%= f.text_field :name, class: "form-control border-start-0 ps-0", placeholder: "名前を入力してください" %>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <%= f.label :introduction, "自己紹介", class: "form-label fw-bold" %>
+              <%= f.text_area :introduction, class: "form-control", rows: 5, placeholder: "あなたの好きなことや活動について自由に書いてください" %>
+            </div>
+
+
+            <div class="d-grid gap-2">
+              <%= f.submit 'プロフィールの更新', class: "btn btn-primary rounded-pill py-2 fw-bold shadow-sm" %>
+              <%= link_to "マイページに戻る", member_path(@member), class: "btn btn-outline-secondary rounded-pill btn-sm mt-2" %>
+            </div>
+
+          <% end %>
+        </div>
+      </div>
+
+      <div class="card border-danger-subtle bg-danger-subtle bg-opacity-10 shadow-sm rounded-3">
+        <div class="card-body d-flex align-items-center justify-content-between p-3">
+          <div>
+            <div class="fw-bold text-danger mb-0 small">アカウントの削除</div>
+          </div>
+          <%= link_to member_path(current_member.id), 
+                      class: "btn btn-danger btn-sm rounded-pill px-3", 
+                      method: :delete, 
+                      data: { confirm: "本当に退会しますか？\nこの操作は取り消せません。" } do %>
+            <i class="fa-solid fa-user-xmark me-1"></i>退会する
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

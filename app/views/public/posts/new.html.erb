@@ -1,21 +1,48 @@
-<h4>New Post</h4>
-  <% if @post && @post.errors.any? %>
-  <%= @post.errors.count %>error prohibited this post from being saved:
-<ul>
-  <% @post.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
-  <% end %>
-</ul>
-  <% end %>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      
+      <div class="mb-4 text-center">
+        <h2 class="h3 fw-bold">
+          <i class="fa-solid fa-pen-to-square me-2 text-primary"></i>New Post
+        </h2>
+      </div>
 
-<%= form_with model: @post, url: posts_path do |f| %>
-    <p>Title</p>
-    <%= f.text_field :title %>
-      
-    <p>Body</p>
-    <%= f.text_area :body %>
-      
-    <p>
-    <%= f.submit 'Create Post' %>
-    <p/>
-  <% end %>
+      <% if @post && @post.errors.any? %>
+        <div class="alert alert-danger shadow-sm border-0 mb-4" role="alert">
+          <div class="fw-bold mb-2">
+            <i class="fa-solid fa-circle-exclamation me-2"></i>
+            <%= @post.errors.count %>件のエラーにより保存できませんでした
+          </div>
+          <ul class="mb-0 small">
+            <% @post.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4 p-md-5">
+          <%= form_with model: @post, url: posts_path, local: true do |f| %>
+            
+            <div class="mb-4">
+              <%= f.label :title, "タイトル", class: "form-label fw-bold" %>
+              <%= f.text_field :title, class: "form-control form-control-lg bg-light border-0", placeholder: "印象的なタイトルを付けましょう" %>
+            </div>
+
+            <div class="mb-4">
+              <%= f.label :body, "内容", class: "form-label fw-bold" %>
+              <%= f.text_area :body, class: "form-control bg-light border-0", rows: 10, placeholder: "ここに行き先での出来事や感想を詳しく書いてください..." %>
+            </div>
+
+            <div class="d-grid gap-3">
+              <%= f.submit '投稿を公開する', class: "btn btn-primary rounded-pill py-3 fw-bold shadow-sm" %>
+              <%= link_to "キャンセル", posts_path, class: "btn btn-link text-secondary text-decoration-none small" %>
+            </div>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
