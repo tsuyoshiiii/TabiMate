@@ -1,0 +1,56 @@
+<div class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="h3 fw-bold mb-0 text-dark">
+        <i class="fa-solid fa-comments me-2 text-warning"></i>コメント管理
+      </h1>
+      <p class="text-muted small mb-0"></p>
+    </div>
+    <div>
+      <span class="badge bg-light text-secondary border rounded-pill px-3 py-2">
+        全 <%= @comments.count %> 件
+      </span>
+    </div>
+  </div>
+
+  <div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="bg-light border-bottom">
+            <tr>
+              <th class="ps-4 py-3" style="width: 15%;">投稿者</th>
+              <th class="py-3" style="width: 50%;">コメント内容</th>
+              <th class="py-3" style="width: 15%;">投稿先</th>
+              <th class="py-3 text-center" style="width: 20%;">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @comments.each do |comment| %>
+              <tr>
+                <td class="ps-4">
+                  <div class="fw-bold"><%= comment.member.name %></div>
+                  <div class="small text-muted"><%= comment.created_at.strftime('%Y/%m/%d') %></div>
+                </td>
+                <td class="text-break py-3">
+                  <%= comment.comment %>
+                </td>
+                <td>
+                  <%= link_to "投稿詳細", post_path(comment.post), class: "btn btn-link btn-sm p-0" %>
+                </td>
+                <td class="text-center">
+                  <%= link_to admin_comment_path(comment), 
+                              method: :delete, 
+                              data: { confirm: "このコメントを完全に削除しますか？\n内容: #{truncate(comment.comment, length: 20)}" },
+                              class: 'btn btn-outline-danger btn-sm rounded-pill px-3' do %>
+                    <i class="fa-solid fa-trash-can me-1"></i>削除
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

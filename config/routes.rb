@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'comments/index'
+  end
   devise_for :admin, skip: [:registrations, :password], 
   controllers: {sessions: 'admin/sessions'}
   
@@ -10,6 +13,7 @@ Rails.application.routes.draw do
     resources :members, only: [:index, :show, :destroy] 
     resources :groups, only: [:index, :destroy]
     resources :groups, only: [:index, :destroy]
+    resources :comments, only: [:index, :destroy]
   end
 
   scope module: :public do
