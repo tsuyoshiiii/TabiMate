@@ -1,50 +1,82 @@
 <div class="container my-5">
-  <h2 class="h3 fw-bold mb-4">グループ管理</h2>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="h3 fw-bold mb-0 text-dark">
+        <i class="fa-solid fa-layer-group me-2 text-success"></i>グループ管理
+      </h1>
+      <p class="text-muted small mb-0"></p>
+    </div>
+    <div>
+      <span class="badge bg-light text-secondary border rounded-pill px-3 py-2">
+        合計: <%= @groups.count %> グループ
+      </span>
+    </div>
+  </div>
 
-  <div class="card shadow-sm p-4">
-    
-    <% if @groups.present? %>
-      <div class="table-responsive">
-        <table class="table table-hover align-middle">
-          <thead class="table-light">
-            <tr>
-              <th>ID</th>
-              <th>グループ名</th>
-              <th>オーナー</th>
-              <th>メンバー数</th>
-              <th>作成日時</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          
-          <tbody>
-            <% @groups.each do |group| %>
+  <div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+      <% if @groups.present? %>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="bg-light border-bottom">
               <tr>
-                <td><%= group.id %></td>
-                <td><%= link_to group.name, group_path(group), class: "text-decoration-none" %></td>
-                <td><%= link_to group.owner.name, admin_member_path(group.owner), class: "text-decoration-none" %></td>
-                <td><%= group.group_members.count %></td>
-                <td><%= group.created_at.strftime('%Y/%m/%d') %></td>
-                <td
-                  <%= link_to '削除', 
-                              admin_group_path(group), 
-                              method: :delete, 
-                              data: { 
-                                confirm: "グループ名:「#{group.name}」を完全に削除します。よろしいですか？",
-                                turbo: false 
-                              }, 
-                              class: 'btn btn-sm btn-danger' %>
-                </td>
+                <th class="ps-4 py-3 text-secondary fw-bold" style="width: 10%;">ID</th>
+                <th class="py-3 text-secondary fw-bold" style="width: 25%;">グループ名</th>
+                <th class="py-3 text-secondary fw-bold" style="width: 20%;">オーナー</th>
+                <th class="py-3 text-center text-secondary fw-bold" style="width: 15%;">メンバー数</th>
+                <th class="py-3 text-secondary fw-bold" style="width: 15%;">作成日時</th>
+                <th class="py-3 text-center text-secondary fw-bold" style="width: 15%;">操作</th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    <% else %>
-      <div class="alert alert-info text-center">
-        現在、作成されているグループはありません。
-      </div>
-    <% end %>
-    
+            </thead>
+            
+            <tbody>
+              <% @groups.each do |group| %>
+                <tr>
+                  <td class="ps-4 text-secondary small"><%= group.id %></td>
+                  <td>
+                    <%= link_to group.name, group_path(group), class: "fw-bold text-dark text-decoration-none hover-primary" %>
+                  </td>
+                  
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <i class="fa-solid fa-user-tie me-2 text-secondary small"></i>
+                      <%= link_to group.owner.name, admin_member_path(group.owner), class: "text-decoration-none text-dark" %>
+                    </div>
+                  </td>
+
+                  <td class="text-center">
+                    <span class="badge bg-light text-dark border fw-normal">
+                      <%= group.group_members.count %> 名
+                    </span>
+                  </td>
+                  
+                  <td class="text-secondary small">
+                    <%= group.created_at.strftime('%Y/%m/%d') %>
+                  </td>
+                  
+                  <td class="text-center">
+                    <%= link_to admin_group_path(group), 
+                                method: :delete, 
+                                data: { 
+                                  confirm: "グループ名:「#{group.name}」を完全に削除します。よろしいですか？",
+                                  turbo: false 
+                                }, 
+                                class: 'btn btn-outline-danger btn-sm rounded-pill px-3' do %>
+                      <i class="fa-solid fa-trash-can me-1"></i>削除
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+
+        <div class="p-5 text-center">
+          <i class="fa-solid fa-folder-open fs-1 text-light mb-3"></i>
+          <p class="text-muted">現在、作成されているグループはありません。</p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
