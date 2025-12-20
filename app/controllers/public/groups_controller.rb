@@ -1,24 +1,24 @@
 class Public::GroupsController < ApplicationController
-    before_action :authenticate_member! # ログイン必須
+    before_action :authenticate_member! 
     before_action :ensure_owner, only: [:edit, :update, :applications, :approve_application, :reject_application]
-  # グループ一覧表示 (検索機能もここに実装)
+
   def index
-    @groups = Group.all.order(created_at: :desc)
-    # TODO: 検索機能のロジックを追加
+    if params[:search].present?
+    @groups = Group.where('name LIKE ? OR introduction LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%")
+  else
+    @groups = Group.all
+  end
   end
 
-  # 新規グループ作成フォーム
   def new
     @group = Group.new
   end
 
-  # グループ作成実行
   def create
     @group = Group.new(group_params)
     @group.owner_id = current_member.id
 
     if @group.save
-      # グループ作成者を自動で「承認済み」メンバーとして追加
       @group.group_members.create(member_id: current_member.id, status: :approved)
       redirect_to @group, notice: '新しいグループを作成しました。'
     else
@@ -28,27 +28,23 @@ class Public::GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    @is_member = @group.group_members.approved.exists?(member_id: current_member.id) # 承認済みメンバーか
-    @pending_application = @group.group_members.pending.find_by(member_id: current_member.id) # 申請中か
+    @is_member = @group.group_members.approved.exists?(member_id: current_member.id) 
+    @pending_application = @group.group_members.pending.find_by(member_id: current_member.id) 
   end
 
-  # ... edit, update アクションを実装 ...
-
-  # 申請一覧表示 (オーナー向け)
 def applications
   @group = Group.find(params[:id])
-  # 申請中のメンバーのみを取得
   @pending_members = @group.group_members.pending.includes(:member)
 end
 
-# 申請の承認
+
 def approve_application
   @group_member = GroupMember.find(params[:group_member_id])
   @group_member.approved! # enum statusをapproved(1)に更新
   redirect_to applications_group_path(@group_member.group), notice: "#{@group_member.member.name} を承認しました。"
 end
 
-# 申請の拒否
+
 def reject_application
   @group_member = GroupMember.find(params[:group_member_id])
   @group_member.rejected! # enum statusをrejected(2)に更新
@@ -56,7 +52,7 @@ def reject_application
 end
 
 def edit
-  @group = Group.find(params[:id]) # これで id=>nil エラーが消えます
+  @group = Group.find(params[:id]) 
 end
 
 def update

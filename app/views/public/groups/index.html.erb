@@ -1,19 +1,24 @@
 <div class="container my-5">
   <h2 class="h3 fw-bold mb-4">グループ一覧</h2>
 
-  <%# 検索フォーム (検索機能のロジックはコントローラに別途実装が必要) %>
   <div class="mb-4 p-3 bg-light rounded shadow-sm">
     <%= form_with url: groups_path, method: :get, local: true, class: "d-flex" do |f| %>
       <%= f.text_field :search, class: "form-control me-2", placeholder: "グループ名を検索..." %>
       <%= f.submit "検索", class: "btn btn-outline-success" %>
     <% end %>
   </div>
+
+  <% if params[:search].present? %>
+  <div class="mb-3">
+    <span class="text-secondary small">「<strong><%= params[:search] %></strong>」の検索結果: <%= @groups.count %> 件</span>
+    <%= link_to "クリア", groups_path, class: "ms-2 small text-decoration-none" %>
+  </div>
+<% end %>
   
   <div class="text-end mb-3">
     <%= link_to '新しいグループを作成', new_group_path, class: 'btn btn-success' %>
   </div>
 
-  <%# グループ一覧表示 %>
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     <% @groups.each do |group| %>
       <div class="col">
@@ -34,7 +39,4 @@
       </div>
     <% end %>
   </div>
-  
-  <%# ページネーション (Kaminari/Paginateなどを使用する場合) %>
-  <%# <%= paginate @groups %>
 </div>
