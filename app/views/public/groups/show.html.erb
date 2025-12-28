@@ -45,7 +45,7 @@
               <i class="bi bi-person-circle fs-5 me-2"></i>
               <%= link_to member.name, member_path(member), class: "text-decoration-none" %>
               <% if member == @group.owner %>
-                <span class="badge bg-dark ms-auto">オーナー</span>
+                <span class="badge bg-warning text-dark">オーナー</span>
               <% end %>
             </li>
           <% end %>
