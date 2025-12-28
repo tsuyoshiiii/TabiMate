@@ -46,4 +46,12 @@ class Member < ApplicationRecord
   end
 
   validates :email, {presence: true}
+
+  before_validation :set_default_name
+
+  private
+
+  def set_default_name
+    self.name = "新規ユーザー" if self.name.blank?
+  end
 end
